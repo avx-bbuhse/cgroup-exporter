@@ -247,13 +247,13 @@ func TestDoesntOpenFilesThatItDoesntHaveDescriptionsFor(t *testing.T) {
 	<-metrics
 }
 
-func TestFindFilesInLeafDirectoriesRoot(t *testing.T) {
+func TestFindFilesInAllDirectoriesRoot(t *testing.T) {
 	mapfs := fstest.MapFS{
 		"memory.current": &fstest.MapFile{Data: []byte("1234\n")},
 		"cpu.stat":       &fstest.MapFile{Data: []byte("usage_usec 100\n")},
 	}
 	var paths []string
-	err := FindFilesInLeafDirectories(mapfs, ".", func(filePath string, entry fs.DirEntry) error {
+	err := FindFilesInAllDirectories(mapfs, ".", func(filePath string, entry fs.DirEntry) error {
 		paths = append(paths, filePath)
 		return nil
 	})

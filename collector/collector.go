@@ -405,7 +405,9 @@ func visitNestedKeyed(r io.Reader, visitEntry entryVisitor) error {
 			if len(kv) != 2 {
 				return fmt.Errorf("invalid key-value pair %q %q, %d", k, v, len(kv))
 			}
-			visitKV(kv[0], kv[1])
+			if err := visitKV(kv[0], kv[1]); err != nil {
+				return err
+			}
 		}
 
 	}
